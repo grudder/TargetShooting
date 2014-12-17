@@ -1,0 +1,37 @@
+<div id="page">
+    <img id="imgBackground" src='@Url.Content("~/img/p4.jpg")' />
+
+    <div id="btnStart" onclick="start()" style="position: absolute; z-index: 1; border: 1px solid red; cursor: pointer; left: 185px; top: 716px">
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var _ratio = 1.0;
+
+        $(function () {
+            var width = $(document.body).width();
+            _ratio = parseFloat(width / 640);
+
+            scalingByRatio();
+        });
+
+        function scalingByRatio() {
+            $("#imgBackground").css({
+                "width": 640 * _ratio,
+                "height": 830 * _ratio
+            });
+
+            $("#btnStart").css({
+                "width": 268 * _ratio,
+                "height": 65 * _ratio,
+                "left": 185 * _ratio,
+                "top": 716 * _ratio
+            });
+        }
+
+        function start() {
+            location.href = '@Url.Action("Game", "Home")';
+        }
+    </script>
+}
