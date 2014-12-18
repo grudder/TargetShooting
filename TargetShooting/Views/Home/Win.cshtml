@@ -1,8 +1,10 @@
 <div id="page">
-    <img id="imgBackground" src='@Url.Content("~/img/p4.jpg")' />
+    <img id="imgBackground" src='@Url.Content("~/img/p4.jpg")' usemap="#map"/>
 
-    <div id="btnStart" onclick="start()" style="position: absolute; z-index: 1; border: 1px solid red; cursor: pointer; left: 185px; top: 716px">
-    </div>
+    <map name="map">
+        <area id="areaSubmit" alt="提交资料" shape="rect" coords="85,720,302,778" href="javascript:submit()" />
+        <area id="areaReturn" alt="返回游戏" shape="rect" coords="335,720,552,778" href='@Url.Action("Index", "Home")' />
+    </map>
 </div>
 
 @section Scripts {
@@ -22,16 +24,19 @@
                 "height": 830 * _ratio
             });
 
-            $("#btnStart").css({
-                "width": 268 * _ratio,
-                "height": 65 * _ratio,
-                "left": 185 * _ratio,
-                "top": 716 * _ratio
-            });
+            var x1 = 85 * _ratio;
+            var y1 = 720 * _ratio;
+            var x2 = 302 * _ratio;
+            var y2 = 778 * _ratio;
+            $("#areaSubmit").attr("coords", x1 + "," + y1 + "," + x2 + "," + y2);
+
+            x1 = 335 * _ratio;
+            x2 = 552 * _ratio;
+            $("#areaReturn").attr("coords", x1 + "," + y1 + "," + x2 + "," + y2);
         }
 
-        function start() {
-            location.href = '@Url.Action("Game", "Home")';
+        function submit() {
+            
         }
     </script>
 }

@@ -1,8 +1,9 @@
 <div id="page">
-    <img id="imgBackground" src='@Url.Content("~/img/p1.jpg")' />
+    <img id="imgBackground" src='@Url.Content("~/img/p1.jpg")' usemap="#map" />
 
-    <div id="btnStart" onclick="start()" style="position: absolute; z-index: 1; border: 1px solid red; cursor: pointer; left: 185px; top: 716px">
-    </div>
+    <map name="map">
+        <area id="areaStart" alt="¿ªÊ¼" shape="rect" coords="185,716,453,781" href='@Url.Action("Game", "Home")' />
+    </map>
 </div>
 
 @section Scripts {
@@ -21,17 +22,12 @@
                 "width": 640 * _ratio,
                 "height": 830 * _ratio
             });
-
-            $("#btnStart").css({
-                "width": 268 * _ratio,
-                "height": 65 * _ratio,
-                "left": 185 * _ratio,
-                "top": 716 * _ratio
-            });
-        }
-
-        function start() {
-            location.href = '@Url.Action("Game", "Home")';
+            
+            var x1 = 185 * _ratio;
+            var y1 = 716 * _ratio;
+            var x2 = 453 * _ratio;
+            var y2 = 781 * _ratio;
+            $("#areaStart").attr("coords", x1 + "," + y1 + "," + x2 + "," + y2);
         }
     </script>
 }
