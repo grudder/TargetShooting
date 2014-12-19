@@ -15,7 +15,7 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Name, new { @class = "control-label col-xs-2" })
+                @Html.LabelFor(model => model.Name, new { @class = "control-label col-xs-2 " })
                 <div class="col-xs-6">
                     @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -69,10 +69,10 @@
             $("#areaReturn").attr("coords", x1 + "," + y1 + "," + x2 + "," + y2);
 
             $(".form-horizontal").css({
-                "top": 450 * _ratio,
+                "top": 500 * _ratio,
                 "left": 60 * _ratio,
-                "width": 800 * _ratio,
-                "height": 300 * _ratio
+                "width": 600 * _ratio,
+                "height": 450 * _ratio
             });
         }
 
@@ -87,10 +87,17 @@
     .form-control {
         background: #ff4956;
         border: solid 2px #FFFFFF;
+        height: 40px;
     }
 
-    label {
-        color: #FFFFFF;
+    .control-label {
+        font-weight: bold;
         font-size: 20px;
+        color: #FFFFFF;
+        font-family: "Microsoft Yahei",Arial;
+    }
+    input {
+        font-size: 16px;
+        color: #FFFFFF;
     }
 </style>
