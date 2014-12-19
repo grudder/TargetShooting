@@ -1,10 +1,7 @@
 <div id="page">
-    <img id="imgBackground" src='@Url.Content("~/img/p2.jpg")' usemap="#map"/>
-    <map name="map">
-        <area id="areaStart" alt="开始" shape="rect" coords="185,716,453,781" href="javascript: void();" onmousedown=" javascript: start(); " onmouseup=" javascript: stop(); "/>
-    </map>
+    <img id="imgBackground" src='@Url.Content("~/img/p2.jpg")' style="position: absolute; z-index: 0" />
 
-    <img id="imgArrow" src='@Url.Content("~/img/p21.png")' style="position: absolute; z-index: 1; left: 315px; top: 345px" />
+    <img id="imgArrow" src='@Url.Content("~/img/p21.png")' style="position: absolute; z-index: 1; left: 315px; top: 345px"/>
 
     <div id="divProgress" style="position: absolute; top: 610px; left: 90px; width: 480px; height: 50px;">
         <div class="progress">
@@ -14,6 +11,10 @@
         </div>
     </div>
 </div>
+<div id="btnStart" onmousedown="start()" onmouseup="stop()"
+     style="cursor: pointer; position: absolute; z-index: 1; left: 185px; top: 701px; width: 268px; height: 80px">
+</div>
+
 <div id="divImages">
     <img id="img-1" src='@Url.Content("~/img/p213.png")' style="position: absolute; z-index: 1; left: 344px; top: 128px" />
     <img id="img-2" src='@Url.Content("~/img/p204.png")' style="position: absolute; z-index: 1; left: 390px; top: 178px" />
@@ -43,6 +44,10 @@
         $("#divImages img").each(function () {
             $(this).hide();
         });
+
+        // 按钮长按事件的处理
+        $("#btnStart").on("touchstart", start);
+        $("#btnStart").on("touchend", stop);
     });
 
     function scalingByRatio() {
@@ -72,6 +77,13 @@
         });
         $(".progress").css({
             "height": 50 * _ratio - 2
+        });
+
+        $("#btnStart").css({
+            "top": 661 * _ratio,
+            "left": 185 * _ratio,
+            "width": 268 * _ratio,
+            "height": 120 * _ratio
         });
 
         $("#img-1").css({
@@ -192,6 +204,7 @@
         _running = false;
         window.clearInterval(_intervalProgress);
         window.clearInterval(_intervaArrow);
+        $("#imgArrow").hide();
 
         var url = '@Url.Action("Calculate")';
         $.post(url, function (data) {
