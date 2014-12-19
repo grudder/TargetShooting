@@ -1,0 +1,51 @@
+﻿@model TargetShooting.Models.Probability
+
+@{
+    ViewBag.Title = "中奖概率";
+}
+
+<div class="container">
+    <h2>删除</h2>
+
+    <h3>你确定要删除吗？</h3>
+    <div>
+        <h4>中奖概率</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Position)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Position)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Value)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Value)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+	            <input type="submit" value="删除" class="btn btn-primary" />
+	            |
+			    <a class="btn btn-default" href='@Url.Action("Index")'>返回</a>
+            </div>
+        }
+    </div>
+</div>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,51 +15,44 @@ namespace TargetShooting.Models
             set;
         }
 
-        [Display(Name = "用户", Order = 10)]
-        public int UserId
-        {
-            get;
-            set;
-        }
-
         [Required]
-        [Display(Name = "收塔人", Order = 20)]
+        [Display(Name = "名称", Order = 10)]
         [StringLength(20)]
-        public string ReveiverName
+        public string Name
         {
             get;
             set;
         }
 
         [Required]
-        [Display(Name = "手机号码", Order = 30)]
+        [Display(Name = "位置", Order = 20)]
         [StringLength(20)]
-        public string Mobile
+        public string Position
         {
             get;
             set;
         }
 
         [Required]
-        [Display(Name = "详细地址", Order = 40)]
+        [Display(Name = "概率值", Order = 30)]
+        public int Value
+        {
+            get;
+            set;
+        }
+
+        [Required]
+        [Display(Name = "图片文件", Order = 40)]
         [StringLength(200)]
-        public string Address
-        {
-            get;
-            set;
-        }
-
-        [Display(Name = "备注", Order = 50)]
-        [StringLength(1000)]
-        public string Remark
+        public string ImageFile
         {
             get;
             set;
         }
 
         [Required]
-        [Display(Name = "创建时间", Order = 60)]
-        public DateTime CreateTime
+        [Display(Name = "是否中奖", Order = 50)]
+        public bool IfWin
         {
             get;
             set;

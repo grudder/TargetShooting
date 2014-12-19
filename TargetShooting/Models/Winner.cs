@@ -16,33 +16,26 @@ namespace TargetShooting.Models
             set;
         }
 
-        [Display(Name = "用户", Order = 10)]
-        public int UserId
-        {
-            get;
-            set;
-        }
-
         [Required]
-        [Display(Name = "收塔人", Order = 20)]
+        [Display(Name = "姓名", Order = 10)]
         [StringLength(20)]
-        public string ReveiverName
+        public string Name
         {
             get;
             set;
         }
 
         [Required]
-        [Display(Name = "手机号码", Order = 30)]
+        [Display(Name = "电话", Order = 20)]
         [StringLength(20)]
-        public string Mobile
+        public string Tel
         {
             get;
             set;
         }
 
         [Required]
-        [Display(Name = "详细地址", Order = 40)]
+        [Display(Name = "地址", Order = 30)]
         [StringLength(200)]
         public string Address
         {
@@ -50,16 +43,8 @@ namespace TargetShooting.Models
             set;
         }
 
-        [Display(Name = "备注", Order = 50)]
-        [StringLength(1000)]
-        public string Remark
-        {
-            get;
-            set;
-        }
-
         [Required]
-        [Display(Name = "创建时间", Order = 60)]
+        [Display(Name = "创建时间", Order = 40)]
         public DateTime CreateTime
         {
             get;

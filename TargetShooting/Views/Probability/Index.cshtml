@@ -1,0 +1,63 @@
+﻿@model PagedList.IPagedList<TargetShooting.Models.Probability>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "中奖概率";
+}
+
+<div class="container">
+    <h2>中奖概率</h2>
+
+    <p>
+        <a class="btn btn-default" href='@Url.Action("Create")'>新增</a>
+    </p>
+    <table class="table table-striped">
+        <tr>
+            <th>
+                名称
+            </th>
+            <th>
+                位置
+            </th>
+            <th>
+                概率值
+            </th>
+            <th>
+                是否中奖
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Name, "Details", "Probability", new {id = item.Id}, null)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Value)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IfWin)
+                </td>
+                <td>
+                    @Html.ActionLink("修改", "Edit", new {id = item.Id})
+                    |
+                    @Html.ActionLink("删除", "Delete", new {id = item.Id})
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <br/>
+    第 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 页，共 @Model.PageCount 页
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new {page}))
+</div>

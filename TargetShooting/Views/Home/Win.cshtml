@@ -1,50 +1,55 @@
-
-
+@model TargetShooting.Models.Winner
 
 <div id="page">
     <img id="imgBackground" src='@Url.Content("~/img/p4.jpg")' usemap="#map"/>
-    <div style="cursor: pointer; position: absolute; top: 450px; left: 60px; width:800px; height: 300px">
-        <div class="row">
-            <div class="form-horizontal">
-                <div class="form-group">
-                    <label for="name" class=" col-sm-2 control-label" ><b>姓名:</b></label>
-                    <div class="col-sm-4">
-                        <input type="text" id="name" class="form-control" >
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="telephone" class="col-sm-2 control-label"><b>电话:</b></label>
-                    <div class="col-sm-4">
-                        <input type="text" id="telephone" class="form-control" >
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" ><b>地址:</b></label>
-                    <div class="col-sm-4">
-                        <textarea rows="5" class="form-control" ></textarea>
-                    </div>
-                </div>
+    <map name="map">
+        <area id="areaSubmit" alt="提交资料" shape="rect" coords="85,720,302,778" href="javascript:submit()"/>
+        <area id="areaReturn" alt="返回游戏" shape="rect" coords="335,720,552,778" href='@Url.Action("Index", "Home")'/>
+    </map>
 
+    @using (Html.BeginForm()) 
+    {
+        @Html.AntiForgeryToken()
+    
+        <div class="form-horizontal" style="position: absolute">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label col-xs-2" })
+                <div class="col-xs-6">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
             </div>
 
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tel, new { @class = "control-label col-xs-2" })
+                <div class="col-xs-6">
+                    @Html.TextBoxFor(model => model.Tel, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, new { @class = "control-label col-xs-2" })
+                <div class="col-xs-6">
+                    @Html.TextAreaFor(model => model.Address, new { @class = "form-control", rows = 3 })
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
-    <map name="map">
-        <area id="areaSubmit" alt="提交资料" shape="rect" coords="85,720,302,778" href="javascript:submit()" />
-        <area id="areaReturn" alt="返回游戏" shape="rect" coords="335,720,552,778" href='@Url.Action("Index", "Home")' />
-    </map>
+    }
 </div>
 
 @section Scripts {
     <script type="text/javascript">
         var _ratio = 1.0;
 
-        $(function () {
+        $(function() {
             var width = $(document.body).width();
             _ratio = parseFloat(width / 640);
 
-            //scalingByRatio();
+            scalingByRatio();
         });
 
         function scalingByRatio() {
@@ -62,20 +67,30 @@
             x1 = 335 * _ratio;
             x2 = 552 * _ratio;
             $("#areaReturn").attr("coords", x1 + "," + y1 + "," + x2 + "," + y2);
+
+            $(".form-horizontal").css({
+                "top": 450 * _ratio,
+                "left": 60 * _ratio,
+                "width": 800 * _ratio,
+                "height": 300 * _ratio
+            });
         }
 
         function submit() {
-            
+            document.forms[0].submit();
         }
     </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
 }
 <style>
     .form-control {
         background: #ff4956;
         border: solid 2px #FFFFFF;
     }
+
     label {
-       color: #FFFFFF;
-       font-size: 20px;
+        color: #FFFFFF;
+        font-size: 20px;
     }
 </style>
