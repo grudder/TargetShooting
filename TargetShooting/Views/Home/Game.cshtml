@@ -1,60 +1,233 @@
 <div id="page">
-    <img id="imgBackground" src='@Url.Content("~/img/p2.jpg")' usemap="#map" />
-    <img id="pinecone" src='@Url.Content("~/img/p21.png")' style="position: absolute; z-index: 1; left: 315px; top: 345px" />
-    <div id="content" style=" position: absolute; top: 610px; left: 90px; width: 480px; height: 50px;">
-        <div class="progress" >
-            <div class="progress-bar progress-bar-danger " role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                <span class="sr-only">60% Complete</span>
+    <img id="imgBackground" src='@Url.Content("~/img/p2.jpg")' usemap="#map"/>
+    <map name="map">
+        <area id="areaStart" alt="开始" shape="rect" coords="185,716,453,781" href="javascript: void();" onmousedown=" javascript: start(); " onmouseup=" javascript: stop(); "/>
+    </map>
+
+    <img id="imgArrow" src='@Url.Content("~/img/p21.png")' style="position: absolute; z-index: 1; left: 315px; top: 345px" />
+
+    <div id="divProgress" style="position: absolute; top: 610px; left: 90px; width: 480px; height: 50px;">
+        <div class="progress">
+            <div id="progress-bar" class="progress-bar progress-bar-danger " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0">
+                <span class="sr-only">0% Complete</span>
             </div>
         </div>
     </div>
-
-     </div>
-        <map name="map">
-            <area id="areaStart" alt="开始" shape="rect" coords="185,716,453,781" href="javascript:start()" />
-        </map>
+</div>
+<div id="divImages">
+    <img id="img-1" src='@Url.Content("~/img/p213.png")' style="position: absolute; z-index: 1; left: 344px; top: 128px" />
+    <img id="img-2" src='@Url.Content("~/img/p204.png")' style="position: absolute; z-index: 1; left: 390px; top: 178px" />
+    <img id="img-3" src='@Url.Content("~/img/p214.png")' style="position: absolute; z-index: 1; left: 419px; top: 269px" />
+    <img id="img-4" src='@Url.Content("~/img/p205.png")' style="position: absolute; z-index: 1; left: 392px; top: 348px" />
+    <img id="img-5" src='@Url.Content("~/img/p215.png")' style="position: absolute; z-index: 1; left: 346px; top: 395px" />
+    <img id="img-6" src='@Url.Content("~/img/p206.png")' style="position: absolute; z-index: 1; left: 270px; top: 421px" />
+    <img id="img-7" src='@Url.Content("~/img/p216.png")' style="position: absolute; z-index: 1; left: 180px; top: 395px" />
+    <img id="img-8" src='@Url.Content("~/img/p201.png")' style="position: absolute; z-index: 1; left: 128px; top: 348px" />
+    <img id="img-9" src='@Url.Content("~/img/p211.png")' style="position: absolute; z-index: 1; left: 121px; top: 271px" />
+    <img id="img-10" src='@Url.Content("~/img/p202.png")' style="position: absolute; z-index: 1; left: 128px; top: 181px" />
+    <img id="img-11" src='@Url.Content("~/img/p212.png")' style="position: absolute; z-index: 1; left: 178px; top: 129px" />
+    <img id="img-12" src='@Url.Content("~/img/p203.png")' style="position: absolute; z-index: 1; left: 266px; top: 123px" />
+</div>
 
 
 @section Scripts {
     <script type="text/javascript">
-        var _ratio = 1.0;
+    var _ratio = 1.0;
 
-        $(function () {
-            var width = $(document.body).width();
-            _ratio = parseFloat(width / 640);
+    $(function () {
+        var width = $(document.body).width();
+        _ratio = parseFloat(width / 640);
 
-            //scalingByRatio();
+        scalingByRatio();
+
+        $("#divImages img").each(function () {
+            $(this).hide();
+        });
+    });
+
+    function scalingByRatio() {
+        $("#imgBackground").css({
+            "width": 640 * _ratio,
+            "height": 830 * _ratio
         });
 
-        function scalingByRatio() {
-            $("#imgBackground").css({
-                "width": 640 * _ratio,
-                "height": 830 * _ratio
-            });
+        var x1 = 185 * _ratio;
+        var y1 = 716 * _ratio;
+        var x2 = 453 * _ratio;
+        var y2 = 781 * _ratio;
+        $("#areaStart").attr("coords", x1 + "," + y1 + "," + x2 + "," + y2);
 
-            var x1 = 185 * _ratio;
-            var y1 = 716 * _ratio;
-            var x2 = 453 * _ratio;
-            var y2 = 781 * _ratio;
-            $("#areaStart").attr("coords", x1 + "," + y1 + "," + x2 + "," + y2);
+        $("#imgArrow").css({
+            "top": 345 * _ratio,
+            "left": 315 * _ratio,
+            "width": 17 * _ratio,
+            "height": 75 * _ratio
+        });
+
+        $("#divProgress").css({
+            "top": 610 * _ratio,
+            "left": 90 * _ratio,
+            "width": 480 * _ratio,
+            "height": 50 * _ratio
+        });
+        $(".progress").css({
+            "height": 50 * _ratio - 2
+        });
+
+        $("#img-1").css({
+            "top": 128 * _ratio,
+            "left": 344 * _ratio,
+            "width": 117 * _ratio,
+            "height": 121 * _ratio
+        });
+        $("#img-2").css({
+            "top": 178 * _ratio,
+            "left": 390 * _ratio,
+            "width": 123 * _ratio,
+            "height": 116 * _ratio
+        });
+        $("#img-3").css({
+            "top": 269 * _ratio,
+            "left": 419 * _ratio,
+            "width": 101 * _ratio,
+            "height": 106 * _ratio
+        });
+        $("#img-4").css({
+            "top": 348 * _ratio,
+            "left": 392 * _ratio,
+            "width": 122 * _ratio,
+            "height": 117 * _ratio
+        });
+        $("#img-5").css({
+            "top": 395 * _ratio,
+            "left": 346 * _ratio,
+            "width": 115 * _ratio,
+            "height": 121 * _ratio
+        });
+        $("#img-6").css({
+            "top": 421 * _ratio,
+            "left": 270 * _ratio,
+            "width": 104 * _ratio,
+            "height": 101 * _ratio
+        });
+        $("#img-7").css({
+            "top": 395 * _ratio,
+            "left": 180 * _ratio,
+            "width": 114 * _ratio,
+            "height": 121 * _ratio
+        });
+        $("#img-8").css({
+            "top": 348 * _ratio,
+            "left": 128 * _ratio,
+            "width": 121 * _ratio,
+            "height": 119 * _ratio
+        });
+        $("#img-9").css({
+            "top": 271 * _ratio,
+            "left": 121 * _ratio,
+            "width": 101 * _ratio,
+            "height": 106 * _ratio
+        });
+        $("#img-10").css({
+            "top": 181 * _ratio,
+            "left": 128 * _ratio,
+            "width": 121 * _ratio,
+            "height": 116 * _ratio
+        });
+        $("#img-11").css({
+            "top": 129 * _ratio,
+            "left": 178 * _ratio,
+            "width": 117 * _ratio,
+            "height": 121 * _ratio
+        });
+        $("#img-12").css({
+            "top": 123 * _ratio,
+            "left": 266 * _ratio,
+            "width": 105 * _ratio,
+            "height": 102 * _ratio
+        });
+    }
+
+    var _running = false;
+    var _width = 0;
+    var _delta = 5;
+    var _intervalProgress = null;
+    var _intervaArrow = null;
+
+    var doProgress = function () {
+        if (!_running) {
+            return;
         }
 
-        function start() {
-            
+        if (_delta > 0 && _width === 110 || _delta < 0 && _width === -10) {
+            _delta = -_delta;
+        }
+
+        _width += _delta;
+        $("#progress-bar").css("width", _width + "%");
+    };
+
+    var doArrow = function () {
+        $("#imgArrow").animate({
+            'top': 345 * _ratio + 'px'
+        }, 300, function () {
+            $("#imgArrow").animate({
+                'top': 300 * _ratio + 'px'
+            }, 300);
+        });
+    };
+
+    function start() {
+        _running = true;
+        _width = 0;
+        $("#progress-bar").css("width", _width + "%");
+
+        _intervalProgress = window.setInterval(doProgress, 150);
+
+        _intervaArrow = window.setInterval(doArrow, 600);
+    }
+
+    var _twinkleCount = 0;
+    function stop() {
+        _running = false;
+        window.clearInterval(_intervalProgress);
+        window.clearInterval(_intervaArrow);
+
+        var url = '@Url.Action("Calculate")';
+        $.post(url, function (data) {
+            var img = $("#img-" + data.id);
+            window.setInterval(function () {
+                img.toggle();
+                ++_twinkleCount;
+
+                if (_twinkleCount === 10) {
+                    var ifWin = data.ifWin;
+                    if (ifWin) {
+                        location.href = '@Url.Action("Win")';
+                        }
+                        else {
+                            location.href = '@Url.Action("Lose")';
+                        }
+                    }
+                }, 200);
+            });
         }
     </script>
 }
 <style>
-    #content {
+    #divProgress {
         border: solid 1px #000000;
     }
-     .progress {
-         background: #ba9870;
-         height: 48px;
-         border: solid 6px #FFFFFF;
-               }
-  .progress-bar-danger {
+
+    .progress {
+        background: #ba9870;
+        height: 48px;
+        border: solid 6px #FFFFFF;
+    }
+
+    .progress-bar-danger {
         background-color: #ff4956;
-      background-image: none;
-                         }
+        background-image: none;
+        border: solid 1px #000000;
+    }
 </style>
