@@ -68,7 +68,7 @@ namespace TargetShooting.Controllers
         //
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Win([Bind(Include = "Id,Name,Tel,Address")] Winner winner)
+        public JsonResult Win([Bind(Include = "Id,Name,Tel,Address")] Winner winner)
         {
             if (ModelState.IsValid)
             {
@@ -76,10 +76,11 @@ namespace TargetShooting.Controllers
 
                 _db.Winners.Add(winner);
                 _db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            return View(winner);
+            return Json(new
+            {
+            });
         }
 
         // GET: Home/Lose

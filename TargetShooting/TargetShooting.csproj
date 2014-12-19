@@ -156,6 +156,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\WinnerController.cs" />
     <Compile Include="Controllers\ProbabilityController.cs" />
     <Compile Include="DataAccess\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
@@ -234,6 +235,7 @@
     <Content Include="Views\Probability\Details.cshtml" />
     <Content Include="Views\Probability\Edit.cshtml" />
     <Content Include="Views\Probability\Index.cshtml" />
+    <Content Include="Views\Winner\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

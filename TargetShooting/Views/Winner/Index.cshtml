@@ -1,0 +1,52 @@
+﻿@model PagedList.IPagedList<TargetShooting.Models.Winner>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "中奖名单";
+}
+
+<div class="container">
+    <h2>中奖名单</h2>
+
+    <table class="table table-striped">
+        <tr>
+            <th>
+                姓名
+            </th>
+            <th>
+                电话
+            </th>
+            <th>
+                地址
+            </th>
+            <th>
+                获奖时间
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreateTime)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <br/>
+    第 @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) 页，共 @Model.PageCount 页
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new {page}))
+</div>

@@ -7,7 +7,7 @@
         <area id="areaReturn" alt="返回游戏" shape="rect" coords="335,720,552,778" href='@Url.Action("Index", "Home")'/>
     </map>
 
-    @using (Html.BeginForm()) 
+    @using (Html.BeginForm("Win", "Home", FormMethod.Post, new { id = "form1" })) 
     {
         @Html.AntiForgeryToken()
     
@@ -15,7 +15,7 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Name, new { @class = "control-label col-xs-2 " })
+                @Html.LabelFor(model => model.Name, new { @class = "control-label col-xs-2" })
                 <div class="col-xs-6">
                     @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
@@ -69,15 +69,33 @@
             $("#areaReturn").attr("coords", x1 + "," + y1 + "," + x2 + "," + y2);
 
             $(".form-horizontal").css({
-                "top": 500 * _ratio,
+                "top": 450 * _ratio,
                 "left": 60 * _ratio,
-                "width": 600 * _ratio,
-                "height": 450 * _ratio
+                "width": 800 * _ratio
             });
         }
 
         function submit() {
-            document.forms[0].submit();
+            // 以AJAX方式提交表单
+            $('#form1').submit(function () {
+                if ($(this).valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: $(this).serialize(),
+                        success: function (result) {
+                            alert("提交信息成功！我们会在活动结束后第一时间联系您发奖！");
+                            location.href = '@Url.Action("Game")';
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            alert("请稍后重试...");
+                        }
+                    });
+                    return true;
+                }
+                return false;
+            });
+            $('#form1').submit();
         }
     </script>
 
@@ -87,17 +105,10 @@
     .form-control {
         background: #ff4956;
         border: solid 2px #FFFFFF;
-        height: 40px;
     }
 
-    .control-label {
-        font-weight: bold;
+    label {
+        color: #FFFFFF;
         font-size: 20px;
-        color: #FFFFFF;
-        font-family: "Microsoft Yahei",Arial;
-    }
-    input {
-        font-size: 16px;
-        color: #FFFFFF;
     }
 </style>
