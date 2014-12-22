@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -131,6 +133,52 @@ namespace TargetShooting.Controllers
             _db.Probabilities.Remove(probability);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        // POST: /Probability/Calculate
+        [HttpPost]
+        public JsonResult Calculate()
+        {
+            var list = new List<Probability>();
+            int total = 0;
+
+            var winners = _db.Winners;
+            int todayWinnersCount = Enumerable.Count(winners, winner => winner.CreateTime.Date == DateTime.Today);
+            bool isFull = todayWinnersCount >= 4;
+
+            // 按照概率构造抽奖数组
+            var probabilities = _db.Probabilities.ToList();
+            if (isFull)
+            {
+                probabilities = probabilities.Where(i => !i.IfWin).ToList();
+            }
+            foreach (Probability p in probabilities)
+            {
+                int value = p.Value;
+                total += value;
+
+                for (int i = 0; i < value; ++i)
+                {
+                    list.Add(p);
+                }
+            }
+
+            // 产生随机索引值
+            int index = new Random().Next(total + 1);
+
+            Probability probability = list[index];
+
+            if (probability.IfWin)
+            {
+                Session["IfWin"] = true;
+            }
+
+            return Json(new
+            {
+                id = probability.Id,
+                imageFile = probability.ImageFile,
+                ifWin = probability.IfWin
+            });
         }
     }
 }

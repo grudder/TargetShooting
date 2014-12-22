@@ -43,8 +43,16 @@ namespace TargetShooting.Models
             set;
         }
 
+        [Display(Name = "IP", Order = 40)]
+        [StringLength(20)]
+        public string Ip
+        {
+            get;
+            set;
+        }
+
         [Required]
-        [Display(Name = "创建时间", Order = 40)]
+        [Display(Name = "创建时间", Order = 50)]
         public DateTime CreateTime
         {
             get;

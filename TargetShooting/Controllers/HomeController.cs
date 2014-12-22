@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
 
 using TargetShooting.DataAccess;
@@ -24,42 +22,13 @@ namespace TargetShooting.Controllers
             return View();
         }
 
-        // GET: Home/Calculate
-        [HttpPost]
-        public JsonResult Calculate()
-        {
-            var list = new List<Probability>();
-            int total = 0;
-
-            // 按照概率构造抽奖数组
-            var probabilities = _db.Probabilities.ToList();
-            foreach (Probability p in probabilities)
-            {
-                int value = p.Value;
-                total += value;
-
-                for (int i = 0; i < value; ++i)
-                {
-                    list.Add(p);
-                }
-            }
-
-            // 产生随机索引值
-            int index = new Random().Next(total + 1);
-
-            Probability probability = list[index];
-
-            return Json(new
-            {
-                id = probability.Id,
-                imageFile = probability.ImageFile,
-                ifWin = probability.IfWin
-            });
-        }
-
         // GET: Home/Win
         public ActionResult Win()
         {
+            if (Session["IfWin"] == null)
+            {
+                return RedirectToAction("Index");
+            }
             return View();
         }
 
@@ -72,10 +41,13 @@ namespace TargetShooting.Controllers
         {
             if (ModelState.IsValid)
             {
+                winner.Ip = HttpContext.Request.UserHostAddress;
                 winner.CreateTime = DateTime.Now;
 
                 _db.Winners.Add(winner);
                 _db.SaveChanges();
+
+                Session.Remove("IfWin");
             }
 
             return Json(new

@@ -206,7 +206,7 @@
         window.clearInterval(_intervaArrow);
         $("#imgArrow").hide();
 
-        var url = '@Url.Action("Calculate")';
+        var url = '@Url.Action("Calculate", "Probability")';
         $.post(url, function (data) {
             var img = $("#img-" + data.id);
             window.setInterval(function () {
@@ -242,5 +242,10 @@
         background-color: #ff4956;
         background-image: none;
         border: solid 1px #000000;
+    }
+
+    body
+    {
+        background-color: #f9c93d; 
     }
 </style>

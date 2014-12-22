@@ -3,11 +3,10 @@
 <div id="page">
     <img id="imgBackground" src='@Url.Content("~/img/p4.jpg")' usemap="#map"/>
     <map name="map">
-        <area id="areaSubmit" alt="提交资料" shape="rect" coords="85,720,302,778" href="javascript:submit()"/>
         <area id="areaReturn" alt="返回游戏" shape="rect" coords="335,720,552,778" href='@Url.Action("Index", "Home")'/>
     </map>
 
-    @using (Html.BeginForm("Win", "Home", FormMethod.Post, new { id = "form1" })) 
+    @using (Html.BeginForm("Win", "Home", FormMethod.Post, new { id = "form1", onsubmit = "return false;" })) 
     {
         @Html.AntiForgeryToken()
     
@@ -38,6 +37,9 @@
                 </div>
             </div>
         </div>
+        <button id="btnSubmit" type="submit" style="position: absolute; z-index: 1; opacity: 0;">
+            提交资料
+        </button>
     }
 </div>
 
@@ -50,6 +52,26 @@
             _ratio = parseFloat(width / 640);
 
             scalingByRatio();
+
+            // 以AJAX方式提交表单
+            $('#form1').submit(function () {
+                if ($(this).valid()) {
+                    $.ajax({
+                        url: this.action,
+                        type: this.method,
+                        data: $(this).serialize(),
+                        success: function (result) {
+                            alert("提交信息成功！我们会在活动结束后第一时间联系您发奖！");
+                            location.href = '@Url.Action("Game")';
+                        },
+                        error: function (xmlHttpRequest, textStatus, errorThrown) {
+                            alert("请稍后重试...");
+                        }
+                    });
+                    return true;
+                }
+                return false;
+            });
         });
 
         function scalingByRatio() {
@@ -73,29 +95,12 @@
                 "left": 60 * _ratio,
                 "width": 800 * _ratio
             });
-        }
-
-        function submit() {
-            // 以AJAX方式提交表单
-            $('#form1').submit(function () {
-                if ($(this).valid()) {
-                    $.ajax({
-                        url: this.action,
-                        type: this.method,
-                        data: $(this).serialize(),
-                        success: function (result) {
-                            alert("提交信息成功！我们会在活动结束后第一时间联系您发奖！");
-                            location.href = '@Url.Action("Game")';
-                        },
-                        error: function (xmlHttpRequest, textStatus, errorThrown) {
-                            alert("请稍后重试...");
-                        }
-                    });
-                    return true;
-                }
-                return false;
+            $("#btnSubmit").css({
+                "top": 720 * _ratio,
+                "left": 85 * _ratio,
+                "width": 217 * _ratio,
+                "height": 58 * _ratio
             });
-            $('#form1').submit();
         }
     </script>
 
@@ -110,5 +115,9 @@
     label {
         color: #FFFFFF;
         font-size: 20px;
+    }
+    body
+    {
+        background-color: #f9c93d; 
     }
 </style>
