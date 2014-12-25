@@ -19,6 +19,11 @@ namespace TargetShooting.Controllers
         // GET: Home/Game
         public ActionResult Game()
         {
+            if (IsExpired())
+            {
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
 
@@ -59,6 +64,25 @@ namespace TargetShooting.Controllers
         public ActionResult Lose()
         {
             return View();
+        }
+
+        //
+        // POST: /Home/Expired
+        //
+        [HttpPost]
+        public JsonResult Expired()
+        {
+            bool expired = IsExpired();
+
+            return Json(new
+            {
+                expired
+            });
+        }
+
+        private bool IsExpired()
+        {
+            return DateTime.Now >= new DateTime(2014, 12, 28);
         }
     }
 }

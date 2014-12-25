@@ -139,12 +139,15 @@ namespace TargetShooting.Controllers
         [HttpPost]
         public JsonResult Calculate()
         {
+            // 每天最多的中奖人数
+            const int winnersPerDay = 1;
+
             var list = new List<Probability>();
             int total = 0;
 
             var winners = _db.Winners;
             int todayWinnersCount = Enumerable.Count(winners, winner => winner.CreateTime.Date == DateTime.Today);
-            bool isFull = todayWinnersCount >= 4;
+            bool isFull = todayWinnersCount >= winnersPerDay;
 
             // 按照概率构造抽奖数组
             var probabilities = _db.Probabilities.ToList();

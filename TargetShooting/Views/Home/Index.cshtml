@@ -2,32 +2,45 @@
     <img id="imgBackground" src='@Url.Content("~/img/p1.jpg")' usemap="#map" />
 
     <map name="map">
-        <area id="areaStart" alt="开始" shape="rect" coords="185,716,453,781" href='@Url.Action("Game", "Home")' />
+        <area id="areaStart" alt="开始" shape="rect" coords="185,706,453,771" href="javascript: start();" />
     </map>
 </div>
 
 @section Scripts {
     <script type="text/javascript">
-        var _ratio = 1.0;
+    var _ratio = 1.0;
 
-        $(function () {
-            var width = $(document.body).width();
-            _ratio = parseFloat(width / 640);
+    $(function () {
+        var width = $(document.body).width();
+        _ratio = parseFloat(width / 640);
 
-            scalingByRatio();
+        scalingByRatio();
+    });
+
+    function scalingByRatio() {
+        $("#imgBackground").css({
+            "width": 640 * _ratio,
+            "height": 830 * _ratio
         });
 
-        function scalingByRatio() {
-            $("#imgBackground").css({
-                "width": 640 * _ratio,
-                "height": 830 * _ratio
+        var x1 = 185 * _ratio;
+        var y1 = 706 * _ratio;
+        var x2 = 453 * _ratio;
+        var y2 = 771 * _ratio;
+        $("#areaStart").attr("coords", x1 + "," + y1 + "," + x2 + "," + y2);
+    }
+
+    function start() {
+        var url = '@Url.Action("Expired")';
+            $.post(url, function (data) {
+                var expired = data.expired;
+                if (expired === true) {
+                    alert("活动已结束，谢谢参与，请继续关注福田汽车其他精彩活动！");
+                }
+                else {
+                    location.href = '@Url.Action("Game", "Home")';
+                }
             });
-            
-            var x1 = 185 * _ratio;
-            var y1 = 716 * _ratio;
-            var x2 = 453 * _ratio;
-            var y2 = 781 * _ratio;
-            $("#areaStart").attr("coords", x1 + "," + y1 + "," + x2 + "," + y2);
         }
     </script>
     <style>
